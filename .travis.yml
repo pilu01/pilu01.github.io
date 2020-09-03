@@ -4,7 +4,11 @@ node_js:
     - 10 # use nodejs v10 LTS
 cache: npm
 install:
-    - cd blog && npm i
+    - npm install -g hexo-cli
+    - hexo blog
+    - cd blog
+    - npm install
+    - npm install hexo-deployer-git
 # 限制使用 travis 的分支
 branches:
     only:
