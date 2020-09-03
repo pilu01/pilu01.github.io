@@ -1,10 +1,10 @@
 sudo: false
 language: node_js
 node_js:
-    - 12 # use nodejs v10 LTS
+    - 10 # use nodejs v10 LTS
 cache: npm
 install:
-    - cd blog && npm install
+    - cd blog && npm i
 # 限制使用 travis 的分支
 branches:
     only:
