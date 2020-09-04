@@ -104,5 +104,6 @@ theme: cafe
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
   #repo: git@github.com:pilu01/pilu01.github.io.git
   #branch: master
