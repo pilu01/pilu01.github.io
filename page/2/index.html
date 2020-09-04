@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-yuque/Flupy 构建数据处理管道" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/Flupy%20%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%A1%E9%81%93/" class="article-date">
+  <time datetime="2019-12-17T08:21:46.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/Flupy%20%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%A1%E9%81%93/">Flupy 构建数据处理管道</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/Flupy%20%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%A1%E9%81%93/" data-id="ckenz90kq00021qrz1ub66w2l" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/在 Python 中编写抽象类" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/" class="article-date">
+  <time datetime="2019-12-17T08:16:30.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/">在 Python 中编写抽象类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <ul>
+<li>抽象类方法需要继承子类全部实现</li>
+<li>抽象类直接实例化、子类不完全实现都会报错</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span>(<span class="params">ABC</span>):</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">eat</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dance</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;我正在跳舞&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jack</span>(<span class="params">People</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;Jack is walking&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">eat</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;Jack is eating&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/" data-id="ckenz90kw00081qrz3eyw7844" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/Python 常用常量字符串" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/Python%20%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
+  <time datetime="2019-12-17T08:05:21.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/Python%20%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/">Python 常用常量字符串</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <ul>
+<li>大小写字母：<code>string.ascii_letters</code></li>
+<li>小写字母：<code>string.ascii_lowercase</code></li>
+<li>大写字母：<code>string.ascii_uppercase</code></li>
+<li>数字 0-9：<code>string.digits</code></li>
+<li>十六进制数字：<code>string.hexdigits</code></li>
+<li>常见特殊符号：<code>string.punctuation</code></li>
+<li>看起来像空格的字符：<code>string.whitespace</code></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/Python%20%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="ckenz90kr00031qrz51qjbmyi" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/Python 装饰器装饰类中的方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2019-12-17T07:24:09.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/">Python 装饰器装饰类中的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加一个self, 出现异常，调用类另一个方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">catch_exception</span>(<span class="params">origin_func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">self, *args, **kwargs</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            u = origin_func(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> u</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            self.revive()</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;an Exception raised.&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">revive</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;revive from exception.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @catch_exception</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_value</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;here I will do something.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过添加一个self参数，类外面的装饰器就可以直接使用类里面的各种方法，也可以直接使用类的属性。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/" data-id="ckenz90ks00041qrz7utw8rxn" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/学习计划" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" class="article-date">
+  <time datetime="2019-12-17T07:23:52.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">学习计划</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h3 id="学习重点"><a href="#学习重点" class="headerlink" title="学习重点"></a>学习重点</h3><p><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567514692551-49e3e165-3fab-4dd7-895e-4b7e9a57ec24.png#align=left&display=inline&height=25&name=image.png&originHeight=25&originWidth=25&size=1539&status=done&width=25" alt="image.png">插入「脑图」并进行编辑<br><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567567603546-29ab2829-0200-4200-94a0-c2757113ac2c.png"></p>
+<h3 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h3><h4 id="课堂-PPT"><a href="#课堂-PPT" class="headerlink" title="课堂 PPT"></a>课堂 PPT</h4><p><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567514692551-49e3e165-3fab-4dd7-895e-4b7e9a57ec24.png#align=left&display=inline&height=25&name=image.png&originHeight=25&originWidth=25&size=1539&status=done&width=25" alt="image.png">嵌入「本地文件」，在文档中可预览此文件：</p>
+<blockquote>
+<p>脑图（XMind、Mind Manager、Mind Node）<br>设计文件（PhotoShop、Sketch、Axure)<br>办公文件（PDF、PPT、Word、Excel、Keynote、Pages、Numbers）</p>
+</blockquote>
+<h4 id="教学视频"><a href="#教学视频" class="headerlink" title="教学视频"></a>教学视频</h4><p><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567514692551-49e3e165-3fab-4dd7-895e-4b7e9a57ec24.png#align=left&display=inline&height=25&name=image.png&originHeight=25&originWidth=25&size=1539&status=done&width=25" alt="image.png">嵌入「本地视频」或「在线视频」，如优酷及 Bilibili 视频：</p>
+<iframe src="https://player.bilibili.com/player.html?aid=55895675" frameborder="no" allowfullscreen="true"></iframe>
+
+<h4 id="阅读材料"><a href="#阅读材料" class="headerlink" title="阅读材料"></a>阅读材料</h4><p><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567514692551-49e3e165-3fab-4dd7-895e-4b7e9a57ec24.png#align=left&display=inline&height=25&name=image.png&originHeight=25&originWidth=25&size=1539&status=done&width=25" alt="image.png">插入「附件」</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2019/pdf/105911/1570525820813-a79b3d0f-38cb-4a73-a2bb-ce8f091f2049.pdf?_lake_card=%7B%22uid%22:%22rc-upload-1567514495288-26%22,%22src%22:%22https://www.yuque.com/attachments/yuque/0/2019/pdf/105911/1570525820813-a79b3d0f-38cb-4a73-a2bb-ce8f091f2049.pdf%22,%22name%22:%22%E7%A4%BA%E4%BE%8BPDF.pdf%22,%22size%22:16189,%22type%22:%22application/pdf%22,%22ext%22:%22pdf%22,%22progress%22:%7B%22percent%22:0%7D,%22status%22:%22done%22,%22percent%22:0,%22id%22:%22wTSXR%22,%22refSrc%22:%22https://www.yuque.com/attachments/yuque/0/2019/pdf/105911/1569247460410-d74712f0-05ce-474b-b914-d76439248860.pdf%22,%22card%22:%22file%22%7D">示例 PDF.pdf</a></p>
+<h3 id="学习计划"><a href="#学习计划" class="headerlink" title="学习计划"></a>学习计划</h3><p><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567514692551-49e3e165-3fab-4dd7-895e-4b7e9a57ec24.png#align=left&display=inline&height=25&name=image.png&originHeight=25&originWidth=25&size=1539&status=done&width=25" alt="image.png">插入「表格」，可以在表格框里插入对应的图片、附件、状态</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>书名</strong></th>
+<th align="center"><strong>章节</strong></th>
+<th align="center"><strong>计划阅读时间</strong></th>
+<th align="center"><strong>进程</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">《基础有机化学》</td>
+<td align="center">第三章</td>
+<td align="center">2h</td>
+<td align="center">已完成</td>
+</tr>
+<tr>
+<td align="center">《无机化学》</td>
+<td align="center">第一章</td>
+<td align="center">1h</td>
+<td align="center">进行中</td>
+</tr>
+<tr>
+<td align="center">《物理化学》</td>
+<td align="center">第四章</td>
+<td align="center">1h</td>
+<td align="center">未开始</td>
+</tr>
+<tr>
+<td align="center"><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/105911/1571983625842-9d347225-731e-41e0-ab51-91a232a2db72.jpeg#align=left&display=inline&height=3264&name=alex-knight-2EJCSULRwC8-unsplash.jpg&originHeight=3264&originWidth=4896&size=1555309&status=done&width=4896" alt="alex-knight-2EJCSULRwC8-unsplash.jpg"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" data-id="ckenz90kx00091qrz3qh82i7s" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2019-12-17T07:23:52.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.nlark.com/yuque/0/2019/png/215718/1567507815646-d739438a-8ffd-4107-9d87-130e2104446a.png#align=left&display=inline&height=232&name=image.png&originHeight=1553&originWidth=1080&size=367334&status=done&width=161" alt="image.png"></h4><p><em>插入封面图片，点击图片，设置图片大小</em></p>
+<h4 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h4><p>插入「表格」</p>
+<table>
+<thead>
+<tr>
+<th><strong>书名</strong></th>
+<th><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25944034/">《菊次郎与佐纪》</a></th>
+<th><strong>作者</strong></th>
+<th>北野武日本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>出版社</strong></td>
+<td>译林出版社</td>
+<td><strong>阅读日期</strong></td>
+<td>2019 年 2 月</td>
+</tr>
+<tr>
+<td><strong>豆瓣评分</strong></td>
+<td>8.1</td>
+<td><strong>我的评分</strong></td>
+<td>☆☆☆☆</td>
+</tr>
+</tbody></table>
+<h4 id="内容简介"><a href="#内容简介" class="headerlink" title="内容简介"></a>内容简介</h4><p>在此处输入文本<br>你将读到的是北野武的出身、父母、兄弟和家庭的故事。<br>但请放心，这绝非一个自我感觉良好的人写的那种“优良课外读物”。<br>相反，北野武用搞笑到甚至刻薄方式描绘这些人和事，让我们在笑与泪的交织中，看到真情和真实，看到那么多情、柔软的心。</p>
+<h4 id="书摘"><a href="#书摘" class="headerlink" title="书摘"></a>书摘</h4><p>在此处输入文本</p>
+<ul>
+<li>你将读到的是北野武的出身、父母、兄弟和家庭的故事。</li>
+<li>但请放心，这绝非一个自我感觉良好的人写的那种“优良课外读物”。很喜欢这句 ← 方便打标签的状态卡片</li>
+<li>相反，北野武用搞笑到甚至刻薄方式描绘这些人和事，让我们在笑与泪的交织中，看到真情和真实，看到那么多情、柔软的心。</li>
+</ul>
+<h4 id="读后感"><a href="#读后感" class="headerlink" title="读后感"></a>读后感</h4><p>在此处输入文本</p>
+<ul>
+<li>你将读到的是北野武的出身、父母、兄弟和家庭的故事。</li>
+<li>但请放心，这绝非一个自我感觉良好的人写的那种“优良课外读物”。</li>
+<li>相反，北野武用搞笑到甚至刻薄方式描绘这些人和事，让我们在笑与泪的交织中，看到真情和真实，看到那么多情、柔软的心。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/17/yuque/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" data-id="ckenz90l6000f1qrzfjm340oa" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/04/first/">first</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/">并发编程（5）：future</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/">并发编程（2）：协程gevent</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B+%E9%98%9F%E5%88%97/">并发编程（2）：多线程+队列</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2020 John Doe&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      Contact&nbsp;|&nbsp;youemail@outlook.com
+    </div>
+  </div>
+</footer>
+ 
+<script src="/jquery/jquery.min.js"></script>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ 
+<script src="/js/is.js"></script>
+
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/elevator.js"></script>
+
+  </div>
+</body>
+</html>

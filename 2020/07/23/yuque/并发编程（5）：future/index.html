@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first | Hexo</title>
+  <title>并发编程（5）：future | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2020/09/04/first/index.html">
+  <meta name="description" content="concurrent.futures 中包含 ThreadPoolExecutor 和 ProcessPoolExecutor 这两个执行器，分别产生线程池和进程池。我们把清理不可用代理的代码改成使用 ThreadPoolExecutor 模式 12345678910111213141516171819202122232425262728293031323334353637from concurr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程（5）：future">
+<meta property="og:url" content="http://example.com/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="concurrent.futures 中包含 ThreadPoolExecutor 和 ProcessPoolExecutor 这两个执行器，分别产生线程池和进程池。我们把清理不可用代理的代码改成使用 ThreadPoolExecutor 模式 12345678910111213141516171819202122232425262728293031323334353637from concurr">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-04T00:57:28.000Z">
+<meta property="article:published_time" content="2020-07-23T02:06:57.000Z">
 <meta property="article:modified_time" content="2020-09-04T08:29:06.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
@@ -68,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yuque/并发编程（5）：future" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/04/first/" class="article-date">
-  <time datetime="2020-09-04T00:57:28.000Z" itemprop="datePublished">2020-09-04</time>
+    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" class="article-date">
+  <time datetime="2020-07-23T02:06:57.000Z" itemprop="datePublished">2020-07-23</time>
 </a>
     
   </div>
@@ -82,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first
+      并发编程（5）：future
     </h1>
   
 
@@ -92,11 +94,13 @@
       
         <!-- Table of Contents -->
         
-        
+        <p>concurrent.futures 中包含 ThreadPoolExecutor 和 ProcessPoolExecutor 这两个执行器，分别产生线程池和进程池。我们把清理不可用代理的代码改成使用 ThreadPoolExecutor 模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor, ProcessPoolExecutor</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_proxy</span>(<span class="params">p</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fetch(<span class="string">&#x27;http://baidu.com&#x27;</span>, proxy=p[<span class="string">&#x27;address&#x27;</span>])</span><br><span class="line">    <span class="keyword">except</span> RequestException:</span><br><span class="line">        p.delete()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_pool_executor</span>():</span></span><br><span class="line">    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> Proxy.objects.all():</span><br><span class="line">            executor.submit(check_proxy, p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"> max_workers参数定义了供执行器使用的线程数量。</span></span><br><span class="line"><span class="string"> executor.submit表示手动提交单个任务，submit执行的返回值是一个concurrent.futures.Future实例，</span></span><br><span class="line"><span class="string"> 如果调用Future实例的result方法就可以获得结果，结果被返回之前进程是阻塞的。</span></span><br><span class="line"><span class="string"> 还可以给Future实例添加回调函数</span></span><br><span class="line"><span class="string"> &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"><span class="comment"># 偏函数，固定一个参数，返回新函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">when_done</span>(<span class="params">p, f</span>):</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">&#x27;[&#123;&#125;]:&#123;&#125;&#x27;</span>.format(p.address, <span class="string">&#x27;succeed&#x27;</span> <span class="keyword">if</span> f.result() <span class="keyword">else</span> <span class="string">&#x27;failure&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_pool_executor_with_cb</span>():</span></span><br><span class="line">    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> Proxy.objects.all():</span><br><span class="line">            result=executor.submit(check_proxy, p)</span><br><span class="line">            result.add_done_callback(partial(when_done, p))</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" data-id="ckenz90l5000e1qrz97061d5k" class="article-share-link">Share</a>
       
       
       
@@ -150,19 +154,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/04/first/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          first
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">并发编程（5）：future</div>
+      <div class="article-nav-title">并发编程（2）：协程gevent</div>
     </a>
   
 </nav>

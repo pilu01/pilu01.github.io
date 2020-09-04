@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first | Hexo</title>
+  <title>centos 上用docker 创建kafka | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2020/09/04/first/index.html">
+  <meta name="description" content="12345docker ps # 查看正在运行的容器docker ps -a # 查看所有容器docker start 容器id  # 启动一个容器docker logs 容器id  # 查看一个容器日志  https:&#x2F;&#x2F;my.oschina.net&#x2F;langwanghuangshifu&#x2F;blog&#x2F;2251454 1，拉取所需要的镜像文件 12docker pull wurstmeister&#x2F;z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos 上用docker 创建kafka">
+<meta property="og:url" content="http://example.com/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12345docker ps # 查看正在运行的容器docker ps -a # 查看所有容器docker start 容器id  # 启动一个容器docker logs 容器id  # 查看一个容器日志  https:&#x2F;&#x2F;my.oschina.net&#x2F;langwanghuangshifu&#x2F;blog&#x2F;2251454 1，拉取所需要的镜像文件 12docker pull wurstmeister&#x2F;z">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-04T00:57:28.000Z">
+<meta property="article:published_time" content="2019-12-18T05:36:13.000Z">
 <meta property="article:modified_time" content="2020-09-04T08:29:06.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
@@ -68,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yuque/centos 上用docker 创建kafka" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/04/first/" class="article-date">
-  <time datetime="2020-09-04T00:57:28.000Z" itemprop="datePublished">2020-09-04</time>
+    <a href="/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/" class="article-date">
+  <time datetime="2019-12-18T05:36:13.000Z" itemprop="datePublished">2019-12-18</time>
 </a>
     
   </div>
@@ -82,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first
+      centos 上用docker 创建kafka
     </h1>
   
 
@@ -92,11 +94,19 @@
       
         <!-- Table of Contents -->
         
-        
+        <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker ps # 查看正在运行的容器</span><br><span class="line">docker ps -a # 查看所有容器</span><br><span class="line">docker start 容器id  # 启动一个容器</span><br><span class="line">docker logs 容器id  # 查看一个容器日志</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/langwanghuangshifu/blog/2251454">https://my.oschina.net/langwanghuangshifu/blog/2251454</a></p>
+<p>1，拉取所需要的镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull wurstmeister/zookeeper  # 拉取zookeeper 镜像</span><br><span class="line">docker pull wurstmeister/kafka   # 拉取kafka 镜像</span><br></pre></td></tr></table></figure>
+
+<p>2， 启动镜像，生成容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run --name zookeeper -p 2181 -t wurstmeister/zookeeper；</span><br><span class="line"></span><br><span class="line">docker run  -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0</span><br><span class="line">-e KAFKA_ZOOKEEPER_CONNECT=49.234.190.114:2181</span><br><span class="line">-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://49.234.190.114:9092</span><br><span class="line">-e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动kafka容器，可能出错的原因：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1，端口号没有开放</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2，内存太大，修改修改bin/kafka-server-start.sh，</span></span><br><span class="line"><span class="meta">#</span><span class="bash">将<span class="built_in">export</span> KAFKA_HEAP_OPTS=<span class="string">&quot;-Xmx1G -Xms1G&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">修改为<span class="built_in">export</span> KAFKA_HEAP_OPTS=<span class="string">&quot;-Xmx256m -Xms256m&quot;</span>即可。</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/" data-id="ckenz90kt00051qrzaac68ne0" class="article-share-link">Share</a>
       
       
       
@@ -150,19 +160,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/24/yuque/records%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          records 源码分析
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/12/17/yuque/Flupy%20%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%A1%E9%81%93/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">并发编程（5）：future</div>
+      <div class="article-nav-title">Flupy 构建数据处理管道</div>
     </a>
   
 </nav>

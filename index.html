@@ -71,7 +71,7 @@
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/09/04/hello-world/" class="article-date">
-  <time datetime="2020-09-04T03:16:33.993Z" itemprop="datePublished">2020-09-04</time>
+  <time datetime="2020-09-04T08:29:06.781Z" itemprop="datePublished">2020-09-04</time>
 </a>
     
   </div>
@@ -109,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/hello-world/" data-id="ckeno32ei000123pl2r7k24n7" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/09/04/hello-world/" data-id="ckenz90kp00011qrzf8195pq0" class="article-share-link">Share</a>
       
       
       
@@ -149,7 +149,399 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckeno32e4000023plbjp44khr" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/并发编程（5）：future" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" class="article-date">
+  <time datetime="2020-07-23T02:06:57.000Z" itemprop="datePublished">2020-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/">并发编程（5）：future</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>concurrent.futures 中包含 ThreadPoolExecutor 和 ProcessPoolExecutor 这两个执行器，分别产生线程池和进程池。我们把清理不可用代理的代码改成使用 ThreadPoolExecutor 模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor, ProcessPoolExecutor</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_proxy</span>(<span class="params">p</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fetch(<span class="string">&#x27;http://baidu.com&#x27;</span>, proxy=p[<span class="string">&#x27;address&#x27;</span>])</span><br><span class="line">    <span class="keyword">except</span> RequestException:</span><br><span class="line">        p.delete()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_pool_executor</span>():</span></span><br><span class="line">    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> Proxy.objects.all():</span><br><span class="line">            executor.submit(check_proxy, p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"> max_workers参数定义了供执行器使用的线程数量。</span></span><br><span class="line"><span class="string"> executor.submit表示手动提交单个任务，submit执行的返回值是一个concurrent.futures.Future实例，</span></span><br><span class="line"><span class="string"> 如果调用Future实例的result方法就可以获得结果，结果被返回之前进程是阻塞的。</span></span><br><span class="line"><span class="string"> 还可以给Future实例添加回调函数</span></span><br><span class="line"><span class="string"> &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"><span class="comment"># 偏函数，固定一个参数，返回新函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">when_done</span>(<span class="params">p, f</span>):</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">&#x27;[&#123;&#125;]:&#123;&#125;&#x27;</span>.format(p.address, <span class="string">&#x27;succeed&#x27;</span> <span class="keyword">if</span> f.result() <span class="keyword">else</span> <span class="string">&#x27;failure&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_pool_executor_with_cb</span>():</span></span><br><span class="line">    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">5</span>) <span class="keyword">as</span> executor:</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> Proxy.objects.all():</span><br><span class="line">            result=executor.submit(check_proxy, p)</span><br><span class="line">            result.add_done_callback(partial(when_done, p))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" data-id="ckenz90l5000e1qrz97061d5k" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/并发编程（2）：协程gevent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/" class="article-date">
+  <time datetime="2020-07-22T08:39:33.000Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/">并发编程（2）：协程gevent</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>高并发编程时，采用多线程（或进程）是一种不可取的解决方案，因为线程（或进程）本质上都是操作系统的资源。每个线程都是需要额外占用内存的，由于线程的调度由操作系统完成，调度器会因为时间片用完等原因强制夺取某个线程的控制权，开发者还需要考虑加锁、使用队列等操作，这些都容易造成高并发情况下的性能瓶颈。</p>
+<p>协程是用户空间线程，复杂的逻辑和异步都封装在底层，开发者还是在使用同步的方式编程，但这种协作式的任务调度可以让用户自己控制使用 CPU 的时间，除非自己放弃，否则不会被其他协程抢夺到控制权。</p>
+<p>信号量（Semaphore）可以用来保证多协程（或者线程）并发访问共享资源时不会发生冲突</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;Start a&#x27;</span>)</span><br><span class="line">    gevent.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">&#x27;End a&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">b</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;Start b&#x27;</span>)</span><br><span class="line">    gevent.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">&#x27;End b&#x27;</span>)</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(a),</span><br><span class="line">    gevent.spawn(b),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># 协程，总共耗时 2秒</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过信号量控制共享数据访问</span></span><br><span class="line"><span class="keyword">from</span> gevent.coros <span class="keyword">import</span> BoundedSemaphore</span><br><span class="line">sem = BoundedSemaphore(<span class="number">1</span>)</span><br><span class="line">IN_POOL_TASKS = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">put_new_page</span>(<span class="params">p, queue</span>):</span></span><br><span class="line">    <span class="keyword">global</span> IN_POOL_TASKS</span><br><span class="line">    sem.acquire()</span><br><span class="line">    sleep(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">if</span> p <span class="keyword">not</span> <span class="keyword">in</span> IN_POOL_TASKS:</span><br><span class="line">        queue.put(p)</span><br><span class="line">        IN_POOL_TASKS.append(p)</span><br><span class="line">    sem.release()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>一，猴子补丁<br>**from **gevent **import **monkey<br>monkey.patch_all()<br>monkey patch 指的是在运行时动态替换,一般是在 startup 的时候.<br>;把标准库中的 thread/socket 等给替换掉.这样我们在后面使用 socket 的时候可以跟平常一样使用,无需修改任何代码,但是它变成非阻塞的了.</p>
+<ol>
+<li>协程，并发访问目标 url</li>
+<li>保存需要数据响应，失败则删除代理，继续测试，5 次以上 url 存入队列</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/" data-id="ckenz90l3000c1qrz2hk37utk" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/并发编程（2）：多线程+队列" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B+%E9%98%9F%E5%88%97/" class="article-date">
+  <time datetime="2020-07-22T03:43:36.000Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B+%E9%98%9F%E5%88%97/">并发编程（2）：多线程+队列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p><em>以爬虫程序为例，先爬取代理网站的代理 ip，存入数据库动作</em><br>_</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多线程，队列控制共享变量，队列是线程安全的</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> Queue</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> mongoengine <span class="keyword">import</span> NotUniqueError</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> models <span class="keyword">import</span> Proxy</span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> PROXY_REGEX, PROXY_SITES</span><br><span class="line"><span class="keyword">from</span> utils <span class="keyword">import</span> fetch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_proxies</span>(<span class="params">url</span>):</span></span><br><span class="line">    proxies = []</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = fetch(url)</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.RequestException:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    addresses = re.findall(PROXY_REGEX, r.text)</span><br><span class="line">    <span class="keyword">for</span> address <span class="keyword">in</span> addresses:</span><br><span class="line">        proxy = Proxy(address=address)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            proxy.save()</span><br><span class="line">        <span class="keyword">except</span> NotUniqueError:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            proxies.append(address)</span><br><span class="line">    <span class="keyword">return</span> proxies</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cleanup</span>():</span></span><br><span class="line">    <span class="comment"># 初始化数据库</span></span><br><span class="line">    Proxy.drop_collection()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_proxies_with_queue2</span>(<span class="params">in_queue, out_queue</span>):</span></span><br><span class="line">    <span class="comment"># 通过队列获取url，解析数据入库，结果到输出队列</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        url = in_queue.get()</span><br><span class="line">        rs = save_proxies(url)</span><br><span class="line">        out_queue.put(rs)</span><br><span class="line">        in_queue.task_done()  <span class="comment"># 队列完成发送信号</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">append_result</span>(<span class="params">out_queue, result</span>):</span></span><br><span class="line">    <span class="comment"># 输出队列的数据生成 变量</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        rs = out_queue.get()</span><br><span class="line">        <span class="keyword">if</span> rs:</span><br><span class="line">            result.extend(rs)</span><br><span class="line">        out_queue.task_done()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_with_queue2</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    输入队列：代理网站</span></span><br><span class="line"><span class="string">    输出队列：解析后的代理ip输出</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    cleanup()</span><br><span class="line">    in_queue = Queue.Queue()</span><br><span class="line">    out_queue = Queue.Queue()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        t = threading.Thread(target=save_proxies_with_queue2,</span><br><span class="line">                             args=(in_queue, out_queue))</span><br><span class="line">        <span class="comment"># 设置守护线程，主线程结束，守护线程结束</span></span><br><span class="line">        t.setDaemon(<span class="literal">True</span>)</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> PROXY_SITES:</span><br><span class="line">        in_queue.put(url)</span><br><span class="line"></span><br><span class="line">    result = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        t = threading.Thread(target=append_result,</span><br><span class="line">                             args=(out_queue, result))</span><br><span class="line">        t.setDaemon(<span class="literal">True</span>)</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">    in_queue.join()</span><br><span class="line">    out_queue.join()</span><br><span class="line">	<span class="comment"># 结果存到变量里</span></span><br><span class="line">    <span class="keyword">print</span> len(result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_proxies_with_queue</span>(<span class="params">queue</span>):</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        url = queue.get()</span><br><span class="line">        save_proxies(url)</span><br><span class="line">        queue.task_done()  <span class="comment"># 队列完成发送信号</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_with_queue</span>():</span></span><br><span class="line">    cleanup()</span><br><span class="line">    queue = Queue.Queue()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        t = threading.Thread(target=save_proxies_with_queue, args=(queue,))</span><br><span class="line">        t.setDaemon(<span class="literal">True</span>)</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> PROXY_SITES:</span><br><span class="line">        queue.put(url)</span><br><span class="line"></span><br><span class="line">    queue.join()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    use_thread_with_queue2()</span><br></pre></td></tr></table></figure>
+
+<p>还可以通过线程池，减少创建、销毁线程的开销</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing.dummy <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_thread_pool</span>():</span></span><br><span class="line">    cleanup()</span><br><span class="line">    pool = ThreadPool(<span class="number">5</span>)</span><br><span class="line">    pool.map(save_proxies, PROXY_SITES)</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B+%E9%98%9F%E5%88%97/" data-id="ckenz90l4000d1qrzd46d3tbf" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/并发编程（1）：各种概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89%EF%BC%9A%E5%90%84%E7%A7%8D%E6%A6%82%E5%BF%B5/" class="article-date">
+  <time datetime="2020-07-22T03:41:03.000Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89%EF%BC%9A%E5%90%84%E7%A7%8D%E6%A6%82%E5%BF%B5/">并发编程（1）：各种概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h2 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h2><p>并发：伪并行，单个 CPU + 多道技术实现的并发</p>
+<p>并行：同时运行 , 只有具备多个 CPU 才能实现、</p>
+<h2 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h2><p>同步：就是在发出一个功能调用时 , 在没有得到结果之前，该调用就不会返回</p>
+<p>异步：  当一个异步功能调用发出后 , 调用者不能立刻得到结果 . 当该异步功能完成后 , 通过状态、通知或回调来通知调用者 , 如果异步功能用状态来通知 , 那么调用者就需要每隔一定时间检查一次 , 效率就很低(有些初学多线程编程的人 , 总喜欢用一个循环去检查某个变量的值 , 这其实是一 种很严重的错误) . 如果是使用通知的方式 , 效率则很高 , 因为异步功能几乎不需要做额外的操作 . 至于回调函数 , 其实和通知没太多区别</p>
+<h2 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h2><p>阻塞：阻塞调用是指调用结果返回之前，当前线程会被挂起（如遇到 io 操作）。函数只有在得到结果之后才会将阻塞的线程激活。有人也许会把阻塞调用和同步调用等同起来，实际上他是不同的。对于同步调用来说，很多时候当前线程还是激活的，只是从逻辑上当前函数没有返回而已</p>
+<p>非阻塞：非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前也会立刻返回，同时该函数不会阻塞当前线程</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89%EF%BC%9A%E5%90%84%E7%A7%8D%E6%A6%82%E5%BF%B5/" data-id="ckenz90l0000b1qrzh4g50tgf" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/并发编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/06/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time datetime="2020-07-06T14:38:30.000Z" itemprop="datePublished">2020-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/06/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>##</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/07/06/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-id="ckenz90ky000a1qrz8tmh0ox8" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/python操作mongodb与redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/" class="article-date">
+  <time datetime="2020-01-03T01:39:44.000Z" itemprop="datePublished">2020-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/">python操作mongodb与redis</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>一，Python 操作 mongodb，针对增删改查</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$gt</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>$gte</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>$lt</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>$lte</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>$ne</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>集合（collection）</td>
+<td>表</td>
+</tr>
+<tr>
+<td>文档（document）</td>
+<td>行</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line">client = MongoClient(<span class="string">&#x27;db_url&#x27;</span>)</span><br><span class="line">database = client.数据库名</span><br><span class="line">collection = database.集合名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">collection.insert_many([</span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">3</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">4</span>&#125;</span><br><span class="line">])</span><br><span class="line">collection.insert_one(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="comment"># 删除年龄为0的数据</span></span><br><span class="line">collection.delete_many(&#123;<span class="string">&#x27;age&#x27;</span>: <span class="number">0</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line"><span class="comment"># 存在则更新，不存在插入</span></span><br><span class="line">collection.update_many(</span><br><span class="line">	&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;公孙小八&#x27;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;$set&#x27;</span>: &#123;<span class="string">&#x27;address&#x27;</span>: <span class="string">&#x27;美国&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">80</span>&#125;&#125;,</span><br><span class="line">    upsert=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line"><span class="comment"># 查询年龄大于21小于25，并且name 不等于 小七,</span></span><br><span class="line"><span class="comment"># 不返回 address和 age 字段</span></span><br><span class="line">rows = collection.find(用于过滤记录的字典，用于限定字段的字典)</span><br><span class="line">rows = cpllection.find(&#123;</span><br><span class="line">	<span class="string">&#x27;age&#x27;</span>: &#123;<span class="string">&#x27;$lt&#x27;</span>:<span class="number">25</span>, <span class="string">&#x27;$gt&#x27;</span>:<span class="number">21</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: &#123;<span class="string">&#x27;$ne&#x27;</span>: <span class="string">&#x27;小七&#x27;</span>&#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	<span class="string">&#x27;address&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: <span class="number">0</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/" data-id="ckenz90ku00061qrz45kd5x6r" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/records 源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/24/yuque/records%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="article-date">
+  <time datetime="2019-12-24T01:51:52.000Z" itemprop="datePublished">2019-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/24/yuque/records%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">records 源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>先来一波魔法方法，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__init__, __new__ 构造函数，先__new__, 后__init__</span><br><span class="line">__del__  对象生命周期结束后，执行的操作</span><br><span class="line"></span><br><span class="line">属性访问控制</span><br><span class="line">__getattr__(self, name) #访问不存在属性时的行为</span><br><span class="line">__setattr__(self, name) 对属性赋值和修改</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/24/yuque/records%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-id="ckenz90ku00071qrze9ohhano" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-yuque/centos 上用docker 创建kafka" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/" class="article-date">
+  <time datetime="2019-12-18T05:36:13.000Z" itemprop="datePublished">2019-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/">centos 上用docker 创建kafka</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker ps # 查看正在运行的容器</span><br><span class="line">docker ps -a # 查看所有容器</span><br><span class="line">docker start 容器id  # 启动一个容器</span><br><span class="line">docker logs 容器id  # 查看一个容器日志</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/langwanghuangshifu/blog/2251454">https://my.oschina.net/langwanghuangshifu/blog/2251454</a></p>
+<p>1，拉取所需要的镜像文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull wurstmeister/zookeeper  # 拉取zookeeper 镜像</span><br><span class="line">docker pull wurstmeister/kafka   # 拉取kafka 镜像</span><br></pre></td></tr></table></figure>
+
+<p>2， 启动镜像，生成容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run --name zookeeper -p 2181 -t wurstmeister/zookeeper；</span><br><span class="line"></span><br><span class="line">docker run  -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0</span><br><span class="line">-e KAFKA_ZOOKEEPER_CONNECT=49.234.190.114:2181</span><br><span class="line">-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://49.234.190.114:9092</span><br><span class="line">-e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动kafka容器，可能出错的原因：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1，端口号没有开放</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2，内存太大，修改修改bin/kafka-server-start.sh，</span></span><br><span class="line"><span class="meta">#</span><span class="bash">将<span class="built_in">export</span> KAFKA_HEAP_OPTS=<span class="string">&quot;-Xmx1G -Xms1G&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">修改为<span class="built_in">export</span> KAFKA_HEAP_OPTS=<span class="string">&quot;-Xmx256m -Xms256m&quot;</span>即可。</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/12/18/yuque/centos%20%E4%B8%8A%E7%94%A8docker%20%E5%88%9B%E5%BB%BAkafka/" data-id="ckenz90kt00051qrzaac68ne0" class="article-share-link">Share</a>
       
       
       
@@ -162,6 +554,10 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next&amp;raquo;</a>
+  </nav>
 </section>
            
     <aside id="sidebar">
@@ -210,6 +606,18 @@
             <a href="/2020/09/04/first/">first</a>
           </li>
         
+          <li>
+            <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/">并发编程（5）：future</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%8D%8F%E7%A8%8Bgevent/">并发编程（2）：协程gevent</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%882%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B+%E9%98%9F%E5%88%97/">并发编程（2）：多线程+队列</a>
+          </li>
+        
       </ul>
     </div>
   </div>
@@ -219,7 +627,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title archive">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 

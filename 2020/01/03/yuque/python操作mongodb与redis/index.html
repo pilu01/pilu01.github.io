@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first | Hexo</title>
+  <title>python操作mongodb与redis | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2020/09/04/first/index.html">
+  <meta name="description" content="一，Python 操作 mongodb，针对增删改查    操作符 意义    $gt 大于   $gte 大于等于   $lt 小于   $lte 小于等于   $ne 不等于   集合（collection） 表   文档（document） 行   12345678910111213141516171819202122232425262728293031323334353637from py">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python操作mongodb与redis">
+<meta property="og:url" content="http://example.com/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一，Python 操作 mongodb，针对增删改查    操作符 意义    $gt 大于   $gte 大于等于   $lt 小于   $lte 小于等于   $ne 不等于   集合（collection） 表   文档（document） 行   12345678910111213141516171819202122232425262728293031323334353637from py">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-04T00:57:28.000Z">
+<meta property="article:published_time" content="2020-01-03T01:39:44.000Z">
 <meta property="article:modified_time" content="2020-09-04T08:29:06.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
@@ -68,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yuque/python操作mongodb与redis" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/04/first/" class="article-date">
-  <time datetime="2020-09-04T00:57:28.000Z" itemprop="datePublished">2020-09-04</time>
+    <a href="/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/" class="article-date">
+  <time datetime="2020-01-03T01:39:44.000Z" itemprop="datePublished">2020-01-03</time>
 </a>
     
   </div>
@@ -82,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first
+      python操作mongodb与redis
     </h1>
   
 
@@ -92,11 +94,49 @@
       
         <!-- Table of Contents -->
         
-        
+        <p>一，Python 操作 mongodb，针对增删改查</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$gt</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>$gte</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>$lt</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>$lte</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>$ne</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>集合（collection）</td>
+<td>表</td>
+</tr>
+<tr>
+<td>文档（document）</td>
+<td>行</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line">client = MongoClient(<span class="string">&#x27;db_url&#x27;</span>)</span><br><span class="line">database = client.数据库名</span><br><span class="line">collection = database.集合名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">collection.insert_many([</span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">3</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">4</span>&#125;</span><br><span class="line">])</span><br><span class="line">collection.insert_one(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="comment"># 删除年龄为0的数据</span></span><br><span class="line">collection.delete_many(&#123;<span class="string">&#x27;age&#x27;</span>: <span class="number">0</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line"><span class="comment"># 存在则更新，不存在插入</span></span><br><span class="line">collection.update_many(</span><br><span class="line">	&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;公孙小八&#x27;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;$set&#x27;</span>: &#123;<span class="string">&#x27;address&#x27;</span>: <span class="string">&#x27;美国&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">80</span>&#125;&#125;,</span><br><span class="line">    upsert=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line"><span class="comment"># 查询年龄大于21小于25，并且name 不等于 小七,</span></span><br><span class="line"><span class="comment"># 不返回 address和 age 字段</span></span><br><span class="line">rows = collection.find(用于过滤记录的字典，用于限定字段的字典)</span><br><span class="line">rows = cpllection.find(&#123;</span><br><span class="line">	<span class="string">&#x27;age&#x27;</span>: &#123;<span class="string">&#x27;$lt&#x27;</span>:<span class="number">25</span>, <span class="string">&#x27;$gt&#x27;</span>:<span class="number">21</span>&#125;,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: &#123;<span class="string">&#x27;$ne&#x27;</span>: <span class="string">&#x27;小七&#x27;</span>&#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	<span class="string">&#x27;address&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: <span class="number">0</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/01/03/yuque/python%E6%93%8D%E4%BD%9Cmongodb%E4%B8%8Eredis/" data-id="ckenz90ku00061qrz45kd5x6r" class="article-share-link">Share</a>
       
       
       
@@ -150,19 +190,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/07/06/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          并发编程
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/12/24/yuque/records%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">并发编程（5）：future</div>
+      <div class="article-nav-title">records 源码分析</div>
     </a>
   
 </nav>

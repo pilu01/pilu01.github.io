@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first | Hexo</title>
+  <title>在 Python 中编写抽象类 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2020/09/04/first/index.html">
+  <meta name="description" content="抽象类方法需要继承子类全部实现 抽象类直接实例化、子类不完全实现都会报错  1234567891011121314151617181920212223from abc import ABC, abstractmethodclass People(ABC):    @abstractmethod    def walk(self):        pass    @abstractmethod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Python 中编写抽象类">
+<meta property="og:url" content="http://example.com/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="抽象类方法需要继承子类全部实现 抽象类直接实例化、子类不完全实现都会报错  1234567891011121314151617181920212223from abc import ABC, abstractmethodclass People(ABC):    @abstractmethod    def walk(self):        pass    @abstractmethod">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-04T00:57:28.000Z">
+<meta property="article:published_time" content="2019-12-17T08:16:30.000Z">
 <meta property="article:modified_time" content="2020-09-04T08:29:06.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
@@ -68,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yuque/在 Python 中编写抽象类" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/04/first/" class="article-date">
-  <time datetime="2020-09-04T00:57:28.000Z" itemprop="datePublished">2020-09-04</time>
+    <a href="/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/" class="article-date">
+  <time datetime="2019-12-17T08:16:30.000Z" itemprop="datePublished">2019-12-17</time>
 </a>
     
   </div>
@@ -82,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first
+      在 Python 中编写抽象类
     </h1>
   
 
@@ -92,11 +94,16 @@
       
         <!-- Table of Contents -->
         
-        
+        <ul>
+<li>抽象类方法需要继承子类全部实现</li>
+<li>抽象类直接实例化、子类不完全实现都会报错</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span>(<span class="params">ABC</span>):</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">eat</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dance</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;我正在跳舞&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jack</span>(<span class="params">People</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">walk</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;Jack is walking&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">eat</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;Jack is eating&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2019/12/17/yuque/%E5%9C%A8%20Python%20%E4%B8%AD%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E7%B1%BB/" data-id="ckenz90kw00081qrz3eyw7844" class="article-share-link">Share</a>
       
       
       
@@ -150,19 +157,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/17/yuque/Flupy%20%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%A1%E9%81%93/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          Flupy 构建数据处理管道
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/12/17/yuque/Python%20%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">并发编程（5）：future</div>
+      <div class="article-nav-title">Python 常用常量字符串</div>
     </a>
   
 </nav>

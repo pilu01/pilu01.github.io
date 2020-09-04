@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first | Hexo</title>
+  <title>Python 装饰器装饰类中的方法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="http://example.com/2020/09/04/first/index.html">
+  <meta name="description" content="12345678910111213141516171819202122232425# 增加一个self, 出现异常，调用类另一个方法def catch_exception(origin_func):    def wrapper(self, *args, **kwargs):        try:            u &#x3D; origin_func(*args, **kwargs)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 装饰器装饰类中的方法">
+<meta property="og:url" content="http://example.com/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12345678910111213141516171819202122232425# 增加一个self, 出现异常，调用类另一个方法def catch_exception(origin_func):    def wrapper(self, *args, **kwargs):        try:            u &#x3D; origin_func(*args, **kwargs)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-04T00:57:28.000Z">
+<meta property="article:published_time" content="2019-12-17T07:24:09.000Z">
 <meta property="article:modified_time" content="2020-09-04T08:29:06.781Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
@@ -68,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yuque/Python 装饰器装饰类中的方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/04/first/" class="article-date">
-  <time datetime="2020-09-04T00:57:28.000Z" itemprop="datePublished">2020-09-04</time>
+    <a href="/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2019-12-17T07:24:09.000Z" itemprop="datePublished">2019-12-17</time>
 </a>
     
   </div>
@@ -82,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first
+      Python 装饰器装饰类中的方法
     </h1>
   
 
@@ -92,11 +94,12 @@
       
         <!-- Table of Contents -->
         
-        
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加一个self, 出现异常，调用类另一个方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">catch_exception</span>(<span class="params">origin_func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">self, *args, **kwargs</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            u = origin_func(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> u</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            self.revive()</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;an Exception raised.&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">revive</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;revive from exception.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @catch_exception</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_value</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;here I will do something.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过添加一个self参数，类外面的装饰器就可以直接使用类里面的各种方法，也可以直接使用类的属性。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/04/first/" data-id="ckenz90kj00001qrzf36tcrm0" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2019/12/17/yuque/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95/" data-id="ckenz90ks00041qrz7utw8rxn" class="article-share-link">Share</a>
       
       
       
@@ -150,19 +153,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/17/yuque/Python%20%E5%B8%B8%E7%94%A8%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          Python 常用常量字符串
         
       </div>
     </a>
   
   
-    <a href="/2020/07/23/yuque/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%885%EF%BC%89%EF%BC%9Afuture/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/12/17/yuque/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">并发编程（5）：future</div>
+      <div class="article-nav-title">学习计划</div>
     </a>
   
 </nav>
